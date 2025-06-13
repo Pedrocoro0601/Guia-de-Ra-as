@@ -348,6 +348,9 @@
             margin-top: 5rem;
             text-align: center;
             border-top: 5px solid var(--color-secondary);
+            display: flex; /* Added for centering button */
+            flex-direction: column; /* Stack items vertically */
+            align-items: center; /* Center items horizontally */
         }
 
         footer p {
@@ -364,6 +367,24 @@
         footer a:hover {
             color: var(--color-secondary);
         }
+
+        /* Footer Button Gradient Animation */
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .footer-button {
+            background-size: 200% auto; /* Make the gradient larger than the element */
+            animation: gradientAnimation 3s ease infinite; /* Apply the animation */
+        }
+
+        .footer-button:hover {
+            transform: translateY(-2px); /* Slight lift on hover */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+        }
+
 
         /* Responsive Adjustments */
         @media (min-width: 768px) {
@@ -1416,6 +1437,9 @@
     <footer>
         <p>&copy; <span id="current-year"></span> | Guia de estudos.</p>
         <p>Desenvolvido por Pedro Henrique com base em conteúdos online.</p>
+        <a href="https://repro-fiv.vercel.app/#/" class="footer-button mt-4 inline-block bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+            Voltar ao guia de estudos <i class="fas fa-external-link-alt ml-2"></i>
+        </a>
     </footer>
 
     <script>
