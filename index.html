@@ -5,21 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guia Ilustrado de Raças Bovinas</title>
     
-    <!-- Importação de Fontes do Google -->
+    <!-- Importação de Fontes do Google (Atualizadas) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
         /* CSS Reset e Configurações Globais */
         :root {
             --bg-color: #1a1a1a;
             --text-color: #f0f0f0;
+            /* Cores e fontes atualizadas */
             --color-primary: #3730a3;
+            --color-primary-dark: #312e81;
             --color-accent: #4f46e5;
             --card-bg-color: #2a2a2a;
-            --font-title: 'Playfair Display', serif;
-            --font-body: 'Inter', sans-serif;
+            --font-title: 'Montserrat', sans-serif;
+            --font-body: 'Open Sans', sans-serif;
         }
 
         * {
@@ -62,6 +64,7 @@
             font-size: 1.5rem;
             color: var(--color-primary);
             animation: fadeInDown 1.5s ease-out;
+            font-weight: 700;
         }
 
         @keyframes fadeInDown {
@@ -75,6 +78,10 @@
         }
         
         /* Títulos de Seção (Letras) */
+        .breed-section {
+             margin-bottom: 4rem;
+        }
+        
         .breed-section h2 {
             font-family: var(--font-title);
             font-size: 4rem;
@@ -82,6 +89,7 @@
             margin-bottom: 2rem;
             border-bottom: 1px solid rgba(55, 48, 163, 0.4);
             display: inline-block;
+            font-weight: 700;
         }
 
         /* Grid de Cards */
@@ -165,6 +173,7 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 0.75rem;
+            font-weight: 700;
         }
         
         .flag-icon {
@@ -190,8 +199,50 @@
 
         .card-content strong {
             color: var(--text-color);
-            font-weight: 500;
+            font-weight: 600;
         }
+
+        /* Rodapé */
+        .site-footer {
+            text-align: center;
+            padding: 3rem 1.5rem;
+            margin-top: 2rem;
+            background-color: #202020;
+            border-top: 1px solid rgba(55, 48, 163, 0.2);
+        }
+
+        .site-footer p {
+            color: #aaa;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(90deg, #ff8c00, #ff6347, #ff8c00);
+            background-size: 200% 200%;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            animation: gradient-animation 4s ease infinite;
+            transition: transform 0.2s ease;
+        }
+        
+        .footer-button:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
 
         /* --- MEDIA QUERIES PARA RESPONSIVIDADE --- */
         
@@ -253,7 +304,7 @@
                 <article class="breed-card"><div class="card-image-placeholder"><span>Adicionar Imagem</span></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/pt.png" alt="Bandeira de Portugal" class="flag-icon">Alentejana</h3><p><strong>Origem:</strong> Portugal.</p><p>Raça antiga. Pelagem do amarelo ao vermelho dourado e chifres compridos.</p></div></article>
                 <article class="breed-card"><div class="card-image-placeholder"><span>Adicionar Imagem</span></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/se.png" alt="Bandeira da Suécia" class="flag-icon">Allmogekor</h3><p><strong>Origem:</strong> Sul da Suécia.</p><p>Resistente e bem adaptada. Dócil e aproveita bem forragens de baixa qualidade.</p></div></article>
                 <article class="breed-card"><div class="card-image-placeholder"><span>Adicionar Imagem</span></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/gb-sct.png" alt="Bandeira da Escócia" class="flag-icon">Angus</h3><p><strong>Origem:</strong> Escócia.</p><p>Gado rústico, mocho (sem chifres). Alta fertilidade e habilidade materna.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><span>Adicionar Imagem</span></div><div class="card-content"><h3><svg class="flag-icon svg-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>Ankole</h3><p><strong>Origem:</strong> África.</p><p>Famosa por seus enormes chifres. Resistentes a pastagens de baixa qualidade.</p></div></article>
+                <article class="breed-card"><div class="card-image-placeholder"><span>Adicionar Imagem</span></div><div class="card-content"><h3><svg class="flag-icon svg-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>Ankole</h3><p><strong>Origem:</strong> África.</p><p>Famosa por seus enormes chifres. Resistentes a pastagens de baixa qualidade.</p></div></article>
             </div>
         </section>
 
@@ -475,6 +526,16 @@
         </section>
 
     </main>
+
+    <footer class="site-footer">
+        <p>© 2025 | Guia de estudos.</p>
+        <a href="#" class="footer-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+                <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+            </svg>
+            <span>Voltar para o Guia de estudos</span>
+        </a>
+    </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
