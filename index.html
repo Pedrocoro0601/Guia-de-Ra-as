@@ -1,33 +1,30 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guia Ilustrado de Raças Bovinas</title>
-    
-    <!-- Importação de Fontes do Google (Atualizadas) -->
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter (for body) and Montserrat (for headings) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    
-    <style>
-        /* CSS Reset e Configurações Globais */
-        :root {
-            --bg-color: #1a1a1a;
-            --text-color: #f0f0f0;
-            /* Cores e fontes atualizadas */
-            --color-primary: #3730a3;
-            --color-primary-dark: #312e81;
-            --color-accent: #4f46e5;
-            --card-bg-color: #2a2a2a;
-            --font-title: 'Montserrat', sans-serif;
-            --font-body: 'Open Sans', sans-serif;
-        }
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* Global Styles & Variables */
+        :root {
+            --color-primary: #1a2b40; /* Darker blue-grey for main text/elements */
+            --color-secondary: #3b82f6; /* A vibrant blue for accents */
+            --color-accent: #6366f1; /* Purple-blue for more accents */
+            --color-light-bg: #f8fafc; /* Light off-white */
+            --color-dark-bg: #e0e7ff; /* Lighter blue-purple for backgrounds */
+            --color-text-light: #f1f5f9; /* Light text for dark backgrounds */
         }
 
         html {
@@ -35,525 +32,1501 @@
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: var(--font-body);
-            line-height: 1.6;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-light-bg);
+            color: var(--color-primary);
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Cabeçalho Fixo */
-        .site-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 1rem 1.5rem;
-            background-color: rgba(26, 26, 26, 0.85);
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--color-primary);
+        }
+
+        /* Header Specific Styles (Glassmorphism) */
+        #main-header {
+            background-color: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid rgba(55, 48, 163, 0.3);
-            text-align: center;
-            display: flex;
-            justify-content: center; /* Centraliza o título */
-            align-items: center;
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(200, 200, 200, 0.2);
+            z-index: 100; /* Ensure it stays on top */
         }
 
-        .site-header h1 {
-            font-family: var(--font-title);
-            font-size: 1.5rem;
-            color: var(--color-primary);
-            animation: fadeInDown 1.5s ease-out;
-            font-weight: 700;
+        /* Hero Section Animations */
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.95) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
-        /* Conteúdo Principal */
-        main {
-            padding: 90px 2rem 2rem; /* Padding superior ajustado */
+        .animate-hero-title {
+            animation: fadeInScale 1s ease-out forwards;
+        }
+        .animate-hero-subtitle {
+            animation: fadeInScale 1s ease-out 0.3s forwards;
+            opacity: 0; /* Start hidden */
+        }
+        .animate-hero-link {
+            animation: slideInRight 0.8s ease-out 0.6s forwards;
+            opacity: 0; /* Start hidden */
         }
         
-        /* Títulos de Seção (Letras) */
-        .breed-section {
-             margin-bottom: 4rem;
-        }
-        
-        .breed-section h2 {
-            font-family: var(--font-title);
-            font-size: 4rem;
-            color: var(--color-primary);
-            margin-bottom: 2rem;
-            border-bottom: 1px solid rgba(55, 48, 163, 0.4);
-            display: inline-block;
-            font-weight: 700;
-        }
-
-        /* Grid de Cards */
-        .breeds-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 2.5rem;
-        }
-
-        /* Estilo dos Cards */
-        .breed-card {
-            background-color: var(--card-bg-color);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            transform-style: preserve-3d;
-            position: relative;
-            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.5s ease;
-            cursor: pointer;
-            opacity: 0;
-            transform: translateY(50px);
-        }
-        
-        .breed-card.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-            transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .breed-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            border: 2px solid transparent;
-            border-radius: 12px;
-            box-sizing: border-box;
-            transition: border-color 0.4s ease;
-            pointer-events: none;
-        }
-
-        .breed-card:hover {
-            transform: perspective(1000px) rotateY(5deg) rotateX(2deg) scale(1.03);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
-        }
-
-        .breed-card:hover::before {
-            border-color: var(--color-accent);
-        }
-
-        .card-image-placeholder {
-            width: 100%; height: 220px;
-            background-color: #333;
-            display: flex;
-            align-items: center; justify-content: center;
-            font-style: italic; color: #888;
-            overflow: hidden; position: relative;
-        }
-        
-        .card-image-placeholder img {
-             width: 100%; height: 100%;
-             object-fit: cover;
-             transition: transform 0.5s ease;
-        }
-
-        .breed-card:hover .card-image-placeholder img {
-            transform: scale(1.1);
-        }
-        
-        /* Conteúdo do Card e Estilo da Bandeira */
-        .card-content {
-            padding: 1.5rem;
-        }
-
-        .card-content h3 {
-            font-family: var(--font-title);
-            color: var(--color-primary);
-            font-size: 1.75rem;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            font-weight: 700;
-        }
-        
-        .flag-icon {
-            height: 22px;
-            width: auto;
-            border-radius: 3px;
-            background-color: #555;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.4);
-            flex-shrink: 0;
-        }
-        
-        .flag-icon.svg-icon {
-            fill: #ccc;
-            background-color: transparent;
-            box-shadow: none;
-        }
-
-        .card-content p {
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
-            color: #ccc;
-        }
-
-        .card-content strong {
-            color: var(--text-color);
-            font-weight: 600;
-        }
-
-        /* Rodapé */
-        .site-footer {
-            text-align: center;
-            padding: 3rem 1.5rem;
+        /* Alphabet Navigation (Sticky & Scrollable) */
+        #alphabet-nav {
+            position: sticky;
+            top: 80px; /* Below header */
+            background-color: var(--color-dark-bg);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            z-index: 50;
+            padding: 0.5rem 0;
+            border-radius: 0.75rem;
             margin-top: 2rem;
-            background-color: #202020;
-            border-top: 1px solid rgba(55, 48, 163, 0.2);
-        }
-
-        .site-footer p {
-            color: #aaa;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-button {
-            display: inline-flex;
+            transform: translateY(0); /* For potential animation */
+            transition: transform 0.3s ease-out;
+            /* Flexbox for centering content, will be adjusted by media query */
+            display: flex;
+            justify-content: center;
             align-items: center;
-            gap: 0.5rem;
-            background: linear-gradient(90deg, #ff8c00, #ff6347, #ff8c00);
-            background-size: 200% 200%;
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            animation: gradient-animation 4s ease infinite;
-            transition: transform 0.2s ease;
         }
-        
-        .footer-button:hover {
+
+        #alphabet-nav.hidden-on-scroll {
+            transform: translateY(-100%);
+        }
+
+        /* Desktop specific styling for alphabet links container */
+        #alphabet-nav .desktop-links {
+            display: none; /* Hidden by default on small screens */
+            overflow-x: auto; /* Allow scrolling for desktop if needed */
+            -webkit-overflow-scrolling: touch;
+            white-space: nowrap;
+            /* Added spacing for desktop links directly */
+            gap: 0.5rem; /* Reduced gap */
+            padding: 0.5rem 2rem;
+        }
+        @media (min-width: 768px) { /* md and up */
+            #alphabet-nav .desktop-links {
+                display: flex; /* Show desktop links on larger screens */
+            }
+        }
+
+        #alphabet-nav a { /* Styles apply to desktop links */
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 40px;
+            height: 40px;
+            padding: 0 0.75rem;
+            color: var(--color-primary);
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+            border-radius: 0.5rem;
+        }
+
+        #alphabet-nav a:hover {
+            background-color: var(--color-secondary);
+            color: var(--color-text-light);
             transform: scale(1.05);
         }
 
-        @keyframes gradient-animation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        #alphabet-nav a.active {
+            background-color: var(--color-accent);
+            color: white;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            transform: scale(1.1);
+        }
+
+        /* Mobile specific styling for select dropdown wrapper */
+        #alphabet-nav .mobile-select-wrapper {
+            display: block; /* Shown by default on mobile */
+            width: 100%; /* Full width for select */
+            padding: 0 1rem; /* Horizontal padding for wrapper */
+        }
+        @media (min-width: 768px) { /* md and up */
+            #alphabet-nav .mobile-select-wrapper {
+                display: none; /* Hide mobile select on larger screens */
+            }
+        }
+
+        #mobile-alphabet-select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--color-secondary);
+            border-radius: 0.5rem;
+            background-color: white;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--color-primary);
+            appearance: none; /* Remove default select styling */
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1.25rem;
+            cursor: pointer;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        #mobile-alphabet-select:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2); /* Tailwind's indigo-400 */
         }
 
 
-        /* --- MEDIA QUERIES PARA RESPONSIVIDADE --- */
-        
-        @media (max-width: 992px) {
-            main {
-                padding-left: 1.5rem;
-                padding-right: 1.5rem;
-            }
+        /* Breed Section Styling */
+        .breed-section {
+            margin-top: 4rem;
+            padding-top: 1rem; /* Space for sticky header */
+            scroll-margin-top: 100px; /* Account for fixed header when scrolling to ID */
+        }
+
+        .breed-section h2 {
+            font-size: 3rem; /* Larger letter heading */
+            text-align: center;
+            margin-bottom: 2.5rem;
+            color: var(--color-secondary);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
+            position: relative;
+            display: inline-block;
+            padding: 0 1rem;
+            line-height: 1; /* Adjust line height for big letter */
+            font-weight: 900; /* Extra bold for impact */
+            letter-spacing: 0.1em; /* Spacing for impact */
+            text-transform: uppercase;
+            background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .breed-section h2::before,
+        .breed-section h2::after {
+            content: '';
+            position: absolute;
+            height: 3px;
+            background: var(--color-accent);
+            top: 50%;
+            transform: translateY(-50%);
+            width: calc(50% - 3rem - 20px); /* Adjust width based on h2 padding and min-width */
+            min-width: 20px; /* Ensure some minimum width */
+        }
+
+        .breed-section h2::before {
+            left: 0;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+
+        .breed-section h2::after {
+            right: 0;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+
+        /* Breed Card Styling */
+        .breeds-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Responsive grid */
+            gap: 1.5rem;
+        }
+
+        .breed-card {
+            background-color: white;
+            border-radius: 1rem; /* More rounded */
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Stronger shadow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            border: 1px solid rgba(0, 0, 0, 0.05); /* Subtle border */
+        }
+
+        .breed-card:hover {
+            transform: translateY(-8px) scale(1.02); /* Lift and slight scale */
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+        }
+
+        .card-image-wrapper {
+            width: 100%;
+            height: 200px; /* Fixed height for image container */
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover the area, crop if necessary */
+            transition: transform 0.3s ease;
+        }
+
+        .breed-card:hover .card-image-wrapper img {
+            transform: scale(1.05); /* Zoom in image on hover */
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            flex-grow: 1; /* Allow content to fill space */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-content h3 {
+            font-size: 1.75rem; /* Larger breed name */
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            display: flex; /* For inline flags */
+            align-items: center;
+            color: var(--color-primary);
+        }
+
+        .card-content p {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #4b5563; /* Tailwind gray-700 */
+            margin-bottom: 0.5rem;
         }
         
-        @media (max-width: 768px) {
-            main {
-                padding: 90px 1rem 1rem;
+        .flag-icon {
+            width: 32px; /* Slightly larger flags */
+            height: auto;
+            border-radius: 4px;
+            margin-right: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0; /* Prevent flags from shrinking */
+        }
+
+        .flag-icon.svg-icon {
+            /* Adjustments for SVG icons like the Ankole's African symbol */
+            width: 28px;
+            height: 28px;
+            color: var(--color-accent); /* Example color for generic icon, adjust as needed */
+            margin-right: 0.5rem;
+        }
+
+        /* Scroll-to-Top Button */
+        #scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--color-secondary);
+            color: white;
+            padding: 0.8rem 1rem;
+            border-radius: 9999px;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.2s ease;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.8);
+            z-index: 90;
+        }
+
+        #scroll-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+        }
+        #scroll-to-top:hover {
+            background-color: var(--color-accent);
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--color-primary);
+            color: var(--color-text-light);
+            padding: 3rem 1.5rem;
+            margin-top: 5rem;
+            text-align: center;
+            border-top: 5px solid var(--color-secondary);
+        }
+
+        footer p {
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        footer a {
+            color: var(--color-dark-bg);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        footer a:hover {
+            color: var(--color-secondary);
+        }
+
+        /* Responsive Adjustments */
+        @media (min-width: 768px) {
+            #alphabet-nav {
+                padding: 0.5rem 2rem;
             }
+
+            #alphabet-nav a {
+                padding: 0 1rem; /* More spacing for letters */
+            }
+
             .breed-section h2 {
-                font-size: 3rem;
+                font-size: 4rem; /* Even larger on desktop */
+                margin-bottom: 3rem;
             }
+
             .breeds-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* Larger cards on desktop */
+                gap: 2rem;
             }
-            .breed-card {
-                display: block;
+
+            .card-image-wrapper {
+                height: 220px; /* Taller images on desktop */
             }
-            .card-image-placeholder {
-                width: 100%;
-                height: 180px;
-                border-radius: 12px 12px 0 0;
-            }
+
             .card-content {
-                padding: 1rem;
+                padding: 1.75rem;
             }
+
             .card-content h3 {
-                font-size: 1.5rem;
+                font-size: 2rem;
             }
+
             .card-content p {
-                font-size: 0.95rem;
+                font-size: 1.05rem;
             }
-             .breed-card:hover {
-                transform: scale(1.02);
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (min-width: 1024px) {
+            .breeds-grid {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); /* Even larger on wide screens */
             }
         }
     </style>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800">
 
-    <header class="site-header">
-        <h1>Guia de Raças Bovinas</h1>
+    <!-- Main Header -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 h-20 flex items-center justify-center px-6">
+        <div class="flex items-center w-full max-w-7xl justify-between">
+            <h1 class="text-3xl lg:text-4xl font-extrabold text-center flex-grow">
+                <a href="#" class="text-current no-underline">
+                    Guia <span class="text-blue-600">Ilustrado</span> de Raças <span class="text-indigo-600">Bovinas</span>
+                </a>
+            </h1>
+        </div>
     </header>
 
-    <main>
-        <!-- Seção A -->
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-500 to-purple-600 text-white pt-20">
+        <div class="absolute inset-0 bg-pattern-dots opacity-10 z-0"></div> <!-- Optional background pattern -->
+        <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+            <h2 class="text-5xl md:text-7xl font-extrabold mb-4 animate-hero-title">
+                Explore o Mundo das Raças Bovinas
+            </h2>
+            <p class="text-lg md:text-xl text-indigo-100 mb-8 animate-hero-subtitle">
+                Um compêndio visual e detalhado para MV. Pedro Henrique
+            </p>
+            <a href="#A" class="inline-block bg-white text-indigo-700 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-indigo-50 hover:scale-105 transition-all duration-300 animate-hero-link">
+                Começar a Explorar <i class="fas fa-arrow-down ml-2"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Alphabet Navigation -->
+    <nav id="alphabet-nav" class="flex justify-center gap-2 md:gap-4 px-4">
+        <!-- Mobile Select (Visible on small screens, hidden on md and up) -->
+        <div class="mobile-select-wrapper">
+            <select id="mobile-alphabet-select">
+                <option value="A">A - Raças com A</option>
+                <option value="B">B - Raças com B</option>
+                <option value="C">C - Raças com C</option>
+                <option value="D">D - Raças com D</option>
+                <option value="G">G - Raças com G</option>
+                <option value="H">H - Raças com H</option>
+                <option value="I">I - Raças com I</option>
+                <option value="J">J - Raças com J</option>
+                <option value="K">K - Raças com K</option>
+                <option value="L">L - Raças com L</option>
+                <option value="M">M - Raças com M</option>
+                <option value="N">N - Raças com N</option>
+                <option value="O">O - Raças com O</option>
+                <option value="P">P - Raças com P</option>
+                <option value="R">R - Raças com R</option>
+                <option value="S">S - Raças com S</option>
+                <option value="T">T - Raças com T</option>
+                <option value="W">W - Raças com W</option>
+                <option value="Y">Y - Raças com Y</option>
+            </select>
+        </div>
+
+        <!-- Desktop Links (Hidden on small screens, visible on md and up) -->
+        <div class="desktop-links">
+            <a href="#A">A</a>
+            <a href="#B">B</a>
+            <a href="#C">C</a>
+            <a href="#D">D</a>
+            <a href="#G">G</a>
+            <a href="#H">H</a>
+            <a href="#I">I</a>
+            <a href="#J">J</a>
+            <a href="#K">K</a>
+            <a href="#L">L</a>
+            <a href="#M">M</a>
+            <a href="#N">N</a>
+            <a href="#O">O</a>
+            <a href="#P">P</a>
+            <a href="#R">R</a>
+            <a href="#S">S</a>
+            <a href="#T">T</a>
+            <a href="#W">W</a>
+            <a href="#Y">Y</a>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="container mx-auto px-4 md:px-6 py-8">
+
+        <!-- Section A -->
         <section id="A" class="breed-section">
             <h2>A</h2>
             <div class="breeds-grid">
-                <!-- Para adicionar uma imagem, coloque o ficheiro numa pasta "images" e mude o src. Ex: src="./images/africander.jpg" -->
-                <article class="breed-card"><div class="card-image-placeholder"><img src="AFRICANDER.jpg" alt="Raça Africander"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/za.png" alt="Bandeira da África do Sul" class="flag-icon">Africander</h3><p><strong>Origem:</strong> África do Sul.</p><p>De tamanho médio, pele solta e orelhas compridas. Boa tolerância a altas temperaturas.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="ALBERES.jpg" alt="Raça Alberes"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/fr.png" alt="Bandeira da França" class="flag-icon"><img src="https://flagcdn.com/w40/es.png" alt="Bandeira da Espanha" class="flag-icon">Alberes</h3><p><strong>Origem:</strong> França e Espanha.</p><p>Raça semi-selvagem, rústica. Resistente ao frio, mas sensível ao calor.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="ALENTEJANA.jpg" alt="Raça Alentejana"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/pt.png" alt="Bandeira de Portugal" class="flag-icon">Alentejana</h3><p><strong>Origem:</strong> Portugal.</p><p>Raça antiga. Pelagem do amarelo ao vermelho dourado e chifres compridos.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="ALLMOGEKOR.jpg" alt="Raça Allmogekor"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/se.png" alt="Bandeira da Suécia" class="flag-icon">Allmogekor</h3><p><strong>Origem:</strong> Sul da Suécia.</p><p>Resistente e bem adaptada. Dócil e aproveita bem forragens de baixa qualidade.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="ANGUS.jpg" alt="Raça Angus"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/gb-sct.png" alt="Bandeira da Escócia" class="flag-icon">Angus</h3><p><strong>Origem:</strong> Escócia.</p><p>Gado rústico, mocho (sem chifres). Alta fertilidade e habilidade materna.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="ANKOLE.jpg" alt="Raça Ankole"></div><div class="card-content"><h3><svg class="flag-icon svg-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>Ankole</h3><p><strong>Origem:</strong> África.</p><p>Famosa por seus enormes chifres. Resistentes a pastagens de baixa qualidade.</p></div></article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="AFRICANDER.jpg" alt="Raça Africander">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/za.png" alt="Bandeira da África do Sul" class="flag-icon">Africander</h3>
+                        <p><strong>Origem:</strong> África do Sul.</p>
+                        <p>De tamanho médio, pele solta e orelhas compridas. Boa tolerância a altas temperaturas.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="ALBERES.jpg" alt="Raça Alberes">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/fr.png" alt="Bandeira da França" class="flag-icon"><img src="https://flagcdn.com/w40/es.png" alt="Bandeira da Espanha" class="flag-icon">Alberes</h3>
+                        <p><strong>Origem:</strong> França e Espanha.</p>
+                        <p>Raça semi-selvagem, rústica. Resistente ao frio, mas sensível ao calor.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="ALENTEJANA.jpg" alt="Raça Alentejana">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/pt.png" alt="Bandeira de Portugal" class="flag-icon">Alentejana</h3>
+                        <p><strong>Origem:</strong> Portugal.</p>
+                        <p>Raça antiga. Pelagem do amarelo ao vermelho dourado e chifres compridos.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="ALLMOGEKOR.jpg" alt="Raça Allmogekor">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/se.png" alt="Bandeira da Suécia" class="flag-icon">Allmogekor</h3>
+                        <p><strong>Origem:</strong> Sul da Suécia.</p>
+                        <p>Resistente e bem adaptada. Dócil e aproveita bem forragens de baixa qualidade.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="ANGUS.jpg" alt="Raça Angus">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/gb-sct.png" alt="Bandeira da Escócia" class="flag-icon">Angus</h3>
+                        <p><strong>Origem:</strong> Escócia.</p>
+                        <p>Gado rústico, mocho (sem chifres). Alta fertilidade e habilidade materna.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="ANKOLE.jpg" alt="Raça Ankole">
+                    </div>
+                    <div class="card-content">
+                        <h3><svg class="flag-icon svg-icon ankole-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>Ankole</h3>
+                        <p><strong>Origem:</strong> África.</p>
+                        <p>Famosa por seus enormes chifres. Resistentes a pastagens de baixa qualidade.</p>
+                    </div>
+                </article>
             </div>
         </section>
 
-        <!-- Seção B -->
+        <!-- Section B -->
         <section id="B" class="breed-section">
             <h2>B</h2>
             <div class="breeds-grid">
-                <article class="breed-card"><div class="card-image-placeholder"><img src="BAZADAISE.jpg" alt="Raça Bazadaise"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/fr.png" alt="Bandeira da França" class="flag-icon">Bazadaise</h3><p><strong>Origem:</strong> Sudoeste da França.</p><p>Boa estrutura muscular e grande rusticidade.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="BEEFALO.jpg" alt="Raça Beefalo"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/us.png" alt="Bandeira dos EUA" class="flag-icon">Beefalo</h3><p><strong>Origem:</strong> Cruzamento (EUA).</p><p>Cruzamento de bisão com gado doméstico.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="BELGIAN RED.jpg" alt="Raça Belgian Red"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/be.png" alt="Bandeira da Bélgica" class="flag-icon">Belgian Red</h3><p><strong>Origem:</strong> Bélgica.</p><p>Vermelhos, com algumas manchas brancas.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="BELGIAN RED PIED.jpg" alt="Raça Belgian Red Pied"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/be.png" alt="Bandeira da Bélgica" class="flag-icon">Belgian Red Pied</h3><p><strong>Origem:</strong> Bélgica.</p><p>Cores vermelha e branca, com pele rosa.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="BELGIAN WHITE AND RED Witrood.jpg" alt="Raça Belgian White And Red"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/be.png" alt="Bandeira da Bélgica" class="flag-icon">Belgian White And Red</h3><p><strong>Origem:</strong> Bélgica.</p><p>Pelagem vermelha e branca.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="BLANCA CACEREÑA.jpg" alt="Raça Blanca Cacereña"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/es.png" alt="Bandeira da Espanha" class="flag-icon">Blanca Cacereña</h3><p><strong>Origem:</strong> Espanha.</p><p>Raça em perigo de extinção. Rústica e forte.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="BLANCO OREJINEGRO.jpg" alt="Raça Blanco Orejinegro"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/co.png" alt="Bandeira da Colômbia" class="flag-icon">Blanco Orejinegro</h3><p><strong>Origem:</strong> Colômbia.</p><p>Adaptável a zonas montanhosas.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="BLONDE D`AQUITAINE.jpg" alt="Raça Blonde d'Aquitaine"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/fr.png" alt="Bandeira da França" class="flag-icon">Blonde d'Aquitaine</h3><p><strong>Origem:</strong> Sudoeste da França.</p><p>Cor de "trigo maduro".</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="BORAN.jpg" alt="Raça Boran"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/ke.png" alt="Bandeira do Quênia" class="flag-icon">Boran</h3><p><strong>Origem:</strong> Quênia.</p><p>Resistência ao calor e parasitas.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="BORNEO BANTENG.jpg" alt="Raça Borneo Banteng"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/id.png" alt="Bandeira da Indonésia" class="flag-icon"><img src="https://flagcdn.com/w40/my.png" alt="Bandeira da Malásia" class="flag-icon">Borneo Banteng</h3><p><strong>Origem:</strong> Bornéu.</p><p>Temperamento selvagem.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="BRAFORD.jpg" alt="Raça Braford"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/us.png" alt="Bandeira dos EUA" class="flag-icon">Braford</h3><p><strong>Origem:</strong> Cruzamento (EUA).</p><p>Cruzamento de Brahman e Hereford.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="BRAHMAN.jpg" alt="Raça Brahman"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/us.png" alt="Bandeira dos EUA" class="flag-icon">Brahman</h3><p><strong>Origem:</strong> Estados Unidos.</p><p>Resistência a altas temperaturas.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="BRANGUS.jpg" alt="Raça Brangus"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/us.png" alt="Bandeira dos EUA" class="flag-icon">Brangus</h3><p><strong>Origem:</strong> Estados Unidos.</p><p>3/8 Brahman e 5/8 Angus.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="BRAVA.jpg" alt="Raça Brava"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/es.png" alt="Bandeira da Espanha" class="flag-icon"><img src="https://flagcdn.com/w40/pt.png" alt="Bandeira de Portugal" class="flag-icon">Brava</h3><p><strong>Origem:</strong> Península Ibérica.</p><p>Selecionada por sua agressividade e força.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="BRAUNVIEH.jpg" alt="Raça Braunvieh"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/ch.png" alt="Bandeira da Suíça" class="flag-icon">Braunvieh</h3><p><strong>Origem:</strong> Suíça.</p><p>Boa para leite e engorda.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="BRETONNE PIE - NOIRE.jpg" alt="Raça Bretonne Pie-Noire"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/fr.png" alt="Bandeira da França" class="flag-icon">Bretonne Pie-Noire</h3><p><strong>Origem:</strong> França.</p><p>A menor das raças francesas.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="BRITISH WHITE.jpg" alt="Raça British White"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/gb.png" alt="Bandeira da Grã-Bretanha" class="flag-icon">British White</h3><p><strong>Origem:</strong> Grã-Bretanha.</p><p>Temperamento dócil, pelo branco com pontos pretos.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="BRITISH WHITE PARK.jpg" alt="Raça British White Park"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/gb.png" alt="Bandeira da Grã-Bretanha" class="flag-icon">British White Park</h3><p><strong>Origem:</strong> Grã-Bretanha.</p><p>Temperamento dócil e boa fertilidade.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="BÚFALOS.jpg" alt="Búfalos"></div><div class="card-content"><h3><svg class="flag-icon svg-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-8 3.58-8 8s3.58 8 8 8c3.13 0 5.84-1.79 7.15-4.35c.06-.11.1-.22.15-.35A8.02 8.02 0 0 0 12 4zm-7.16 8.92c.2-.38.48-.72.8-1.01c.42-.4 1.02-.79 1.77-1.15c.16-.08.34-.14.52-.21c-1.33.64-2.26 1.94-2.38 3.48c-.03.3-.06.6-.06.91c-.69-.24-1.32-.58-1.87-.99c-.19-.15-.38-.3-.55-.47c.23.01.47.02.7.02c.75 0 1.45-.19 2.07-.53z"/></svg>Búfalos</h3><p><strong>Tipos:</strong> Pântano e Água (Origem: Ásia).</p><p>Variedades como Murrah, Jafarabadi, etc.</p></div></article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="BAZADAISE.jpg" alt="Raça Bazadaise">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/fr.png" alt="Bandeira da França" class="flag-icon">Bazadaise</h3>
+                        <p><strong>Origem:</strong> Sudoeste da França.</p>
+                        <p>Boa estrutura muscular e grande rusticidade.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="BEEFALO.jpg" alt="Raça Beefalo">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/us.png" alt="Bandeira dos EUA" class="flag-icon">Beefalo</h3>
+                        <p><strong>Origem:s</strong> Cruzamento (EUA).</p>
+                        <p>Cruzamento de bisão com gado doméstico.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="BELGIAN RED.jpg" alt="Raça Belgian Red">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/be.png" alt="Bandeira da Bélgica" class="flag-icon">Belgian Red</h3>
+                        <p><strong>Origem:</strong> Bélgica.</p>
+                        <p>Vermelhos, com algumas manchas brancas.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="BLANCO OREJINEGRO.jpg" alt="Raça Blanco Orejinegro">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/co.png" alt="Bandeira da Colômbia" class="flag-icon">Blanco Orejinegro</h3>
+                        <p><strong>Origem:</strong> Colômbia.</p>
+                        <p>Adaptável a zonas montanhosas.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="BORAN.jpg" alt="Raça Boran">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/ke.png" alt="Bandeira do Quênia" class="flag-icon">Boran</h3>
+                        <p><strong>Origem:</strong> Quênia.</p>
+                        <p>Resistência ao calor e parasitas.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="BORNEO BANTENG.jpg" alt="Raça Borneo Banteng">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/id.png" alt="Bandeira da Indonésia" class="flag-icon"><img src="https://flagcdn.com/w40/my.png" alt="Bandeira da Malásia" class="flag-icon">Borneo Banteng</h3>
+                        <p><strong>Origem:</strong> Bornéu.</p>
+                        <p>Temperamento selvagem.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="BRAFORD.jpg" alt="Raça Braford">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/us.png" alt="Bandeira dos EUA" class="flag-icon">Braford</h3>
+                        <p><strong>Origem:</strong> Cruzamento (EUA).</p>
+                        <p>Cruzamento de Brahman e Hereford.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="BRAHMAN.jpg" alt="Raça Brahman">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/us.png" alt="Bandeira dos EUA" class="flag-icon">Brahman</h3>
+                        <p><strong>Origem:</strong> Estados Unidos.</p>
+                        <p>Resistência a altas temperaturas.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="BRANGUS.jpg" alt="Raça Brangus">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/us.png" alt="Bandeira dos EUA" class="flag-icon">Brangus</h3>
+                        <p><strong>Origem:</strong> Estados Unidos.</p>
+                        <p>3/8 Brahman e 5/8 Angus.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="BRAVA.jpg" alt="Raça Brava">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/es.png" alt="Bandeira da Espanha" class="flag-icon"><img src="https://flagcdn.com/w40/pt.png" alt="Bandeira de Portugal" class="flag-icon">Brava</h3>
+                        <p><strong>Origem:</strong> Península Ibérica.</p>
+                        <p>Selecionada por sua agressividade e força.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="BRAUNVIEH.jpg" alt="Raça Braunvieh">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/ch.png" alt="Bandeira da Suíça" class="flag-icon">Braunvieh</h3>
+                        <p><strong>Origem:</strong> Suíça.</p>
+                        <p>Boa para leite e engorda.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="BRETONNE PIE - NOIRE.jpg" alt="Raça Bretonne Pie-Noire">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/fr.png" alt="Bandeira da França" class="flag-icon">Bretonne Pie-Noire</h3>
+                        <p><strong>Origem:</strong> França.</p>
+                        <p>A menor das raças francesas.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="BRITISH WHITE.jpg" alt="Raça British White">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/gb.png" alt="Bandeira da Grã-Bretanha" class="flag-icon">British White</h3>
+                        <p><strong>Origem:</strong> Grã-Bretanha.</p>
+                        <p>Temperamento dócil, pelo branco com pontos pretos.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="BRITISH WHITE PARK.jpg" alt="Raça British White Park">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/gb.png" alt="Bandeira da Grã-Bretanha" class="flag-icon">British White Park</h3>
+                        <p><strong>Origem:</strong> Grã-Bretanha.</p>
+                        <p>Temperamento dócil e boa fertilidade.</p>
+                    </div>
+                </article>
             </div>
         </section>
 
-        <!-- Seção C -->
+        <!-- Section C -->
         <section id="C" class="breed-section">
             <h2>C</h2>
             <div class="breeds-grid">
-                <article class="breed-card"><div class="card-image-placeholder"><img src="CACHENA.jpg" alt="Raça Cachena"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/es.png" alt="Bandeira da Espanha" class="flag-icon">Cachena</h3><p><strong>Origem:</strong> Espanha.</p><p>Pequenos, com chifres grandes, carne de alta qualidade.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="CANADENSE.jpg" alt="Raça Canadense"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/ca.png" alt="Bandeira do Canadá" class="flag-icon">Canadense</h3><p><strong>Origem:</strong> Canadá.</p><p>Adapta-se a diferentes climas, produz bom leite.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="CANCHIM.jpg" alt="Raça Canchim"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/br.png" alt="Bandeira do Brasil" class="flag-icon">Canchim</h3><p><strong>Origem:</strong> Brasil.</p><p>Cruzamento de Charolês e Nelore. Rústico.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="CARACU.jpg" alt="Raça Caracu"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/br.png" alt="Bandeira do Brasil" class="flag-icon">Caracu</h3><p><strong>Origem:</strong> Brasil.</p><p>Bos taurus adaptado ao trópico.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="CHAROLÊS.jpg" alt="Raça Charolês"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/fr.png" alt="Bandeira da França" class="flag-icon">Charolês</h3><p><strong>Origem:</strong> França.</p><p>Musculatura desenvolvida. Grande tamanho.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="CHIANINA.jpg" alt="Raça Chianina"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/it.png" alt="Bandeira da Itália" class="flag-icon">Chianina</h3><p><strong>Origem:</strong> Itália.</p><p>Uma das maiores raças do mundo.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="CORRIENTE.jpg" alt="Raça Corriente"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/us.png" alt="Bandeira dos EUA" class="flag-icon">Corriente</h3><p><strong>Origem:</strong> Estados Unidos.</p><p>Utilizada para rodeios. Pequenos e atléticos.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="CRIOLLO LECHERO TROPICAL.jpg" alt="Raça Criollo Lechero"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/ni.png" alt="Bandeira da Nicarágua" class="flag-icon">Criollo Lechero</h3><p><strong>Origem:</strong> Nicarágua.</p><p>Grande produtor de leite na América Latina.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="CRIOULO LAGEANO.jpg" alt="Raça Crioulo Lageano"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/br.png" alt="Bandeira do Brasil" class="flag-icon">Crioulo Lageano</h3><p><strong>Origem:</strong> Brasil.</p><p>Adaptado a regiões frias do Brasil.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="CURRALEIRO.jpg" alt="Raça Curraleiro"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/br.png" alt="Bandeira do Brasil" class="flag-icon">Curraleiro</h3><p><strong>Origem:</strong> Brasil.</p><p>Adaptado a climas semi-áridos, rústico.</p></div></article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="CACHENA.jpg" alt="Raça Cachena">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/es.png" alt="Bandeira da Espanha" class="flag-icon">Cachena</h3>
+                        <p><strong>Origem:</strong> Espanha.</p>
+                        <p>Pequenos, com chifres grandes, carne de alta qualidade.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="CANADENSE.jpg" alt="Raça Canadense">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/ca.png" alt="Bandeira do Canadá" class="flag-icon">Canadense</h3>
+                        <p><strong>Origem:</strong> Canadá.</p>
+                        <p>Adapta-se a diferentes climas, produz bom leite.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="CANCHIM.jpg" alt="Raça Canchim">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/br.png" alt="Bandeira do Brasil" class="flag-icon">Canchim</h3>
+                        <p><strong>Origem:</strong> Brasil.</p>
+                        <p>Cruzamento de Charolês e Nelore. Rústico.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="CARACU.jpg" alt="Raça Caracu">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/br.png" alt="Bandeira do Brasil" class="flag-icon">Caracu</h3>
+                        <p><strong>Origem:</strong> Brasil.</p>
+                        <p>Bos taurus adaptado ao trópico.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="CHAROLÊS.jpg" alt="Raça Charolês">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/fr.png" alt="Bandeira da França" class="flag-icon">Charolês</h3>
+                        <p><strong>Origem:</strong> França.</p>
+                        <p>Musculatura desenvolvida. Grande tamanho.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="CHIANINA.jpg" alt="Raça Chianina">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/it.png" alt="Bandeira da Itália" class="flag-icon">Chianina</h3>
+                        <p><strong>Origem:</strong> Itália.</p>
+                        <p>Uma das maiores raças do mundo.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="CORRIENTE.jpg" alt="Raça Corriente">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/us.png" alt="Bandeira dos EUA" class="flag-icon">Corriente</h3>
+                        <p><strong>Origem:</strong> Estados Unidos.</p>
+                        <p>Utilizada para rodeios. Pequenos e atléticos.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="CRIOLLO LECHERO TROPICAL.jpg" alt="Raça Criollo Lechero">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/ni.png" alt="Bandeira da Nicarágua" class="flag-icon">Criollo Lechero</h3>
+                        <p><strong>Origem:</strong> Nicarágua.</p>
+                        <p>Grande produtor de leite na América Latina.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="CRIOULO LAGEANO.jpg" alt="Raça Crioulo Lageano">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/br.png" alt="Bandeira do Brasil" class="flag-icon">Crioulo Lageano</h3>
+                        <p><strong>Origem:</strong> Brasil.</p>
+                        <p>Adaptado a regiões frias do Brasil.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="CURRALEIRO.jpg" alt="Raça Curraleiro">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/br.png" alt="Bandeira do Brasil" class="flag-icon">Curraleiro</h3>
+                        <p><strong>Origem:</strong> Brasil.</p>
+                        <p>Adaptado a climas semi-áridos, rústico.</p>
+                    </div>
+                </article>
             </div>
         </section>
         
-        <!-- Seção D -->
+        <!-- Section D -->
         <section id="D" class="breed-section">
             <h2>D</h2>
             <div class="breeds-grid">
-                <article class="breed-card"><div class="card-image-placeholder"><img src="DANISH RED.jpg" alt="Raça Danish Red"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/dk.png" alt="Bandeira da Dinamarca" class="flag-icon">Danish Red</h3><p><strong>Origem:</strong> Dinamarca.</p><p>Raça de grande porte para produção mista.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="DEVON.jpg" alt="Raça Devon"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/gb.png" alt="Bandeira da Grã-Bretanha" class="flag-icon">Devon</h3><p><strong>Origem:</strong> Inglaterra.</p><p>Cor vermelha. Férteis, dóceis e adaptáveis.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="DEXTER.jpg" alt="Raça Dexter"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/ie.png" alt="Bandeira da Irlanda" class="flag-icon">Dexter</h3><p><strong>Origem:</strong> Irlanda.</p><p>Adaptada a diferentes climas. Pequenos.</p></div></article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="DANISH RED.jpg" alt="Raça Danish Red">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/dk.png" alt="Bandeira da Dinamarca" class="flag-icon">Danish Red</h3>
+                        <p><strong>Origem:</strong> Dinamarca.</p>
+                        <p>Raça de grande porte para produção mista.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="DEVON.jpg" alt="Raça Devon">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/gb.png" alt="Bandeira da Grã-Bretanha" class="flag-icon">Devon</h3>
+                        <p><strong>Origem:</strong> Inglaterra.</p>
+                        <p>Cor vermelha. Férteis, dóceis e adaptáveis.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="DEXTER.jpg" alt="Raça Dexter">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/ie.png" alt="Bandeira da Irlanda" class="flag-icon">Dexter</h3>
+                        <p><strong>Origem:</strong> Irlanda.</p>
+                        <p>Adaptada a diferentes climas. Pequenos.</p>
+                    </div>
+                </article>
             </div>
         </section>
 
-        <!-- Seção G -->
+        <!-- Section G -->
         <section id="G" class="breed-section">
             <h2>G</h2>
             <div class="breeds-grid">
-                <article class="breed-card"><div class="card-image-placeholder"><img src="GAYAL.jpg" alt="Raça Gayal"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/in.png" alt="Bandeira da Índia" class="flag-icon">Gayal (Gaur)</h3><p><strong>Origem:</strong> Índia.</p><p>Gaur é selvagem; Gayal é semi-domesticado.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="GELBVIEH.jpg" alt="Raça Gelbvieh"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/de.png" alt="Bandeira da Alemanha" class="flag-icon">Gelbvieh</h3><p><strong>Origem:</strong> Alemanha.</p><p>Vacas são excelentes mães.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="GIR.jpg" alt="Raça Gir"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/in.png" alt="Bandeira da Índia" class="flag-icon">Gir</h3><p><strong>Origem:</strong> Índia.</p><p>Vigorosos e com boa musculatura.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="GIR LEITEIRO.jpg" alt="Raça Gir Leiteiro"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/in.png" alt="Bandeira da Índia" class="flag-icon">Gir Leiteiro</h3><p><strong>Origem:</strong> Índia.</p><p>Excelente produção de leite.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="GIROLANDO.jpg" alt="Raça Girolando"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/br.png" alt="Bandeira do Brasil" class="flag-icon">Girolando</h3><p><strong>Origem:</strong> Brasil.</p><p>Cruzamento de Gir e Holstein.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="GUERNSEY.jpg" alt="Raça Guernsey"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/gg.png" alt="Bandeira de Guernsey" class="flag-icon">Guernsey</h3><p><strong>Origem:</strong> Guernsey (Inglaterra).</p><p>Leite de alta qualidade.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="GUZERÁ.jpg" alt="Raça Guzerá"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/in.png" alt="Bandeira da Índia" class="flag-icon">Guzerá</h3><p><strong>Origem:</strong> Índia.</p><p>Dupla aptidão (leite e carne).</p></div></article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="GELBVIEH.jpg" alt="Raça Gelbvieh">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/de.png" alt="Bandeira da Alemanha" class="flag-icon">Gelbvieh</h3>
+                        <p><strong>Origem:</strong> Alemanha.</p>
+                        <p>Vacas são excelentes mães.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="GIR.jpg" alt="Raça Gir">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/in.png" alt="Bandeira da Índia" class="flag-icon">Gir</h3>
+                        <p><strong>Origem:</strong> Índia.</p>
+                        <p>Vigorosos e com boa musculatura.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="GIR LEITEIRO.jpg" alt="Raça Gir Leiteiro">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/in.png" alt="Bandeira da Índia" class="flag-icon">Gir Leiteiro</h3>
+                        <p><strong>Origem:</strong> Índia.</p>
+                        <p>Excelente produção de leite.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="GIROLANDO.jpg" alt="Raça Girolando">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/br.png" alt="Bandeira do Brasil" class="flag-icon">Girolando</h3>
+                        <p><strong>Origem:</strong> Brasil.</p>
+                        <p>Cruzamento de Gir e Holstein.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="GUERNSEY.jpg" alt="Raça Guernsey">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/gg.png" alt="Bandeira de Guernsey" class="flag-icon">Guernsey</h3>
+                        <p><strong>Origem:</strong> Guernsey (Inglaterra).</p>
+                        <p>Leite de alta qualidade.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="GUZERÁ.jpg" alt="Raça Guzerá">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/in.png" alt="Bandeira da Índia" class="flag-icon">Guzerá</h3>
+                        <p><strong>Origem:</strong> Índia.</p>
+                        <p>Dupla aptidão (leite e carne).</p>
+                    </div>
+                </article>
             </div>
         </section>
 
-        <!-- Seção H -->
+        <!-- Section H -->
         <section id="H" class="breed-section">
             <h2>H</h2>
             <div class="breeds-grid">
-                <article class="breed-card"><div class="card-image-placeholder"><img src="HEREFORD.jpg" alt="Raça Hereford"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/gb.png" alt="Bandeira da Grã-Bretanha" class="flag-icon">Hereford</h3><p><strong>Origem:</strong> Inglaterra.</p><p>Importante raça de carne.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="HIGHLAND.jpg" alt="Raça Highland"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/gb-sct.png" alt="Bandeira da Escócia" class="flag-icon">Highland</h3><p><strong>Origem:</strong> Escócia.</p><p>Pelo longo e avermelhado.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="HOLSTEIN.jpg" alt="Raça Holstein"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/nl.png" alt="Bandeira da Holanda" class="flag-icon">Holstein</h3><p><strong>Origem:</strong> Holanda.</p><p>Destaque mundial em leite.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="HORRO.jpg" alt="Raça Horro"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/et.png" alt="Bandeira da Etiópia" class="flag-icon">Horro</h3><p><strong>Origem:</strong> Etiópia.</p><p>Possui giba, utilizada para carne.</p></div></article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="HEREFORD.jpg" alt="Raça Hereford">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/gb.png" alt="Bandeira da Grã-Bretanha" class="flag-icon">Hereford</h3>
+                        <p><strong>Origem:</strong> Inglaterra.</p>
+                        <p>Importante raça de carne.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="HIGHLAND.jpg" alt="Raça Highland">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/gb-sct.png" alt="Bandeira da Escócia" class="flag-icon">Highland</h3>
+                        <p><strong>Origem:</strong> Escócia.</p>
+                        <p>Pelo longo e avermelhado.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="HOLSTEIN.jpg" alt="Raça Holstein">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/nl.png" alt="Bandeira da Holanda" class="flag-icon">Holstein</h3>
+                        <p><strong>Origem:</strong> Holanda.</p>
+                        <p>Destaque mundial em leite.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="HORRO.jpg" alt="Raça Horro">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/et.png" alt="Bandeira da Etiópia" class="flag-icon">Horro</h3>
+                        <p><strong>Origem:</strong> Etiópia.</p>
+                        <p>Possui giba, utilizada para carne.</p>
+                    </div>
+                </article>
             </div>
         </section>
 
-        <!-- Seção I -->
+        <!-- Section I -->
         <section id="I" class="breed-section">
             <h2>I</h2>
             <div class="breeds-grid">
-                <article class="breed-card"><div class="card-image-placeholder"><img src="ICELANDIC.jpg" alt="Raça Icelandic"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/is.png" alt="Bandeira da Islândia" class="flag-icon">Icelandic</h3><p><strong>Origem:</strong> Islândia.</p><p>Pequena, selecionada pelo leite.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="ILLAWARA.jpg" alt="Raça Illawara"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/au.png" alt="Bandeira da Austrália" class="flag-icon">Illawara</h3><p><strong>Origem:</strong> Austrália.</p><p>Grande produtora de leite.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="INDUBRASIL.jpg" alt="Raça Indubrasil"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/br.png" alt="Bandeira do Brasil" class="flag-icon">Indubrasil</h3><p><strong>Origem:</strong> Brasil.</p><p>Excelente produtora de carne.</p></div></article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="ICELANDIC.jpg" alt="Raça Icelandic">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/is.png" alt="Bandeira da Islândia" class="flag-icon">Icelandic</h3>
+                        <p><strong>Origem:</strong> Islândia.</p>
+                        <p>Pequena, selecionada pelo leite.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="ILLAWARA.jpg" alt="Raça Illawara">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/au.png" alt="Bandeira da Austrália" class="flag-icon">Illawara</h3>
+                        <p><strong>Origem:</strong> Austrália.</p>
+                        <p>Grande produtora de leite.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="INDUBRASIL.jpg" alt="Raça Indubrasil">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/br.png" alt="Bandeira do Brasil" class="flag-icon">Indubrasil</h3>
+                        <p><strong>Origem:</strong> Brasil.</p>
+                        <p>Excelente produtora de carne.</p>
+                    </div>
+                </article>
             </div>
         </section>
 
-        <!-- Seção J -->
+        <!-- Section J -->
         <section id="J" class="breed-section">
             <h2>J</h2>
             <div class="breeds-grid">
-                <article class="breed-card"><div class="card-image-placeholder"><img src="JERSEY.jpg" alt="Raça Jersey"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/je.png" alt="Bandeira de Jersey" class="flag-icon">Jersey</h3><p><strong>Origem:</strong> Ilha Jersey.</p><p>Segunda raça leiteira do mundo.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="JUNQUEIRA.jpg" alt="Raça Junqueira"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/br.png" alt="Bandeira do Brasil" class="flag-icon">Junqueira</h3><p><strong>Origem:</strong> Brasil.</p><p>Raça crioula de dupla aptidão.</p></div></article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="JUNQUEIRA.jpg" alt="Raça Junqueira">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/br.png" alt="Bandeira do Brasil" class="flag-icon">Junqueira</h3>
+                        <p><strong>Origem:</strong> Brasil.</p>
+                        <p>Raça crioula de dupla aptidão.</p>
+                    </div>
+                </article>
             </div>
         </section>
 
-        <!-- Seção K -->
+        <!-- Section K -->
         <section id="K" class="breed-section">
             <h2>K</h2>
             <div class="breeds-grid">
-                <article class="breed-card"><div class="card-image-placeholder"><img src="KATERINI.jpg" alt="Raça Katerini"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/gr.png" alt="Bandeira da Grécia" class="flag-icon">Katerini</h3><p><strong>Origem:</strong> Grécia.</p><p>Dupla aptidão (leite e carne).</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="KERRY.jpg" alt="Raça Kerry"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/ie.png" alt="Bandeira da Irlanda" class="flag-icon">Kerry</h3><p><strong>Origem:</strong> Irlanda.</p><p>Forte e resistente ao frio.</p></div></article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="KATERINI.jpg" alt="Raça Katerini">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/gr.png" alt="Bandeira da Grécia" class="flag-icon">Katerini</h3>
+                        <p><strong>Origem:</strong> Grécia.</p>
+                        <p>Dupla aptidão (leite e carne).</p>
+                    </div>
+                </article>
             </div>
         </section>
 
-        <!-- Seção L -->
+        <!-- Section L -->
         <section id="L" class="breed-section">
             <h2>L</h2>
             <div class="breeds-grid">
-                <article class="breed-card"><div class="card-image-placeholder"><img src="LIMOUSIN.jpg" alt="Raça Limousin"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/fr.png" alt="Bandeira da França" class="flag-icon">Limousin</h3><p><strong>Origem:</strong> França.</p><p>Carne de notável qualidade.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="LIMPURGER.jpg" alt="Raça Limpurger"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/de.png" alt="Bandeira da Alemanha" class="flag-icon">Limpurger</h3><p><strong>Origem:</strong> Alemanha.</p><p>Tripla finalidade (leite, carne, carga).</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="LINCOLN RED.jpg" alt="Raça Lincoln Red"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/gb.png" alt="Bandeira da Grã-Bretanha" class="flag-icon">Lincoln Red</h3><p><strong>Origem:</strong> Grã-Bretanha.</p><p>Eficiente e de maturação rápida.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="LOHANI.jpg" alt="Raça Lohani"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/pk.png" alt="Bandeira do Paquistão" class="flag-icon">Lohani</h3><p><strong>Origem:</strong> Paquistão.</p><p>Pequena, vermelha com manchas brancas.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="LOURDAISE.jpg" alt="Raça Lourdaise"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/fr.png" alt="Bandeira da França" class="flag-icon">Lourdaise</h3><p><strong>Origem:</strong> França.</p><p>Animal de trabalho e leite.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="LOWLINE.jpg" alt="Raça Lowline"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/au.png" alt="Bandeira da Austrália" class="flag-icon">Lowline</h3><p><strong>Origem:</strong> Austrália.</p><p>Derivada do Angus, para carne.</p></div></article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="LIMPURGER.jpg" alt="Raça Limpurger">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/de.png" alt="Bandeira da Alemanha" class="flag-icon">Limpurger</h3>
+                        <p><strong>Origem:</strong> Alemanha.</p>
+                        <p>Tripla finalidade (leite, carne, carga).</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="LINCOLN RED.jpg" alt="Raça Lincoln Red">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/gb.png" alt="Bandeira da Grã-Bretanha" class="flag-icon">Lincoln Red</h3>
+                        <p><strong>Origem:</strong> Grã-Bretanha.</p>
+                        <p>Eficiente e de maturação rápida.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="LOHANI.jpg" alt="Raça Lohani">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/pk.png" alt="Bandeira do Paquistão" class="flag-icon">Lohani</h3>
+                        <p><strong>Origem:</strong> Paquistão.</p>
+                        <p>Pequena, vermelha com manchas brancas.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="LOURDAISE.jpg" alt="Raça Lourdaise">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/fr.png" alt="Bandeira da França" class="flag-icon">Lourdaise</h3>
+                        <p><strong>Origem:</strong> França.</p>
+                        <p>Animal de trabalho e leite.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="LOWLINE.jpg" alt="Raça Lowline">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/au.png" alt="Bandeira da Austrália" class="flag-icon">Lowline</h3>
+                        <p><strong>Origem:</strong> Austrália.</p>
+                        <p>Derivada do Angus, para carne.</p>
+                    </div>
+                </article>
             </div>
         </section>
 
-        <!-- Seção M -->
+        <!-- Section M -->
         <section id="M" class="breed-section">
             <h2>M</h2>
             <div class="breeds-grid">
-                <article class="breed-card"><div class="card-image-placeholder"><img src="MARCHIGIANA.jpg" alt="Raça Marchigiana"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/it.png" alt="Bandeira da Itália" class="flag-icon">Marchigiana</h3><p><strong>Origem:</strong> Itália.</p><p>Criada para carne, grande adaptabilidade.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="MAREMMANA.jpg" alt="Raça Maremmana"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/it.png" alt="Bandeira da Itália" class="flag-icon">Maremmana</h3><p><strong>Origem:</strong> Itália.</p><p>Criada para carne. Rústica.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="MARONESA.jpg" alt="Raça Maronesa"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/pt.png" alt="Bandeira de Portugal" class="flag-icon">Maronesa</h3><p><strong>Origem:</strong> Norte de Portugal.</p><p>Rústica, pelagem escura, para trabalho.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="MENORQUINA.jpg" alt="Raça Menorquina"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/es.png" alt="Bandeira da Espanha" class="flag-icon">Menorquina</h3><p><strong>Origem:</strong> Espanha.</p><p>Utilizada para produção de carne.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="MOCHO NACIONAL.jpg" alt="Raça Mocho Nacional"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/br.png" alt="Bandeira do Brasil" class="flag-icon">Mocho Nacional</h3><p><strong>Origem:</strong> Brasil.</p><p>Criada para tração e carne. Longeva.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="MORUCHA CAPA NEGRA.jpg" alt="Raça Morucha"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/es.png" alt="Bandeira da Espanha" class="flag-icon">Morucha</h3><p><strong>Origem:</strong> Espanha.</p><p>Apta para produção de carne extensiva.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="MURRAY GREY.jpg" alt="Raça Murray Grey"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/au.png" alt="Bandeira da Austrália" class="flag-icon">Murray Grey</h3><p><strong>Origem:</strong> Austrália.</p><p>Para produção de carne.</p></div></article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="MARCHIGIANA.jpg" alt="Raça Marchigiana">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/it.png" alt="Bandeira da Itália" class="flag-icon">Marchigiana</h3>
+                        <p><strong>Origem:</strong> Itália.</p>
+                        <p>Criada para carne, grande adaptabilidade.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="MOCHO NACIONAL.jpg" alt="Raça Mocho Nacional">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/br.png" alt="Bandeira do Brasil" class="flag-icon">Mocho Nacional</h3>
+                        <p><strong>Origem:</strong> Brasil.</p>
+                        <p>Criada para tração e carne. Longeva.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="MORUCHA CAPA NEGRA.jpg" alt="Raça Morucha">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/es.png" alt="Bandeira da Espanha" class="flag-icon">Morucha</h3>
+                        <p><strong>Origem:</strong> Espanha.</p>
+                        <p>Apta para produção de carne extensiva.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="MURRAY GREY.jpg" alt="Raça Murray Grey">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/au.png" alt="Bandeira da Austrália" class="flag-icon">Murray Grey</h3>
+                        <p><strong>Origem:</strong> Austrália.</p>
+                        <p>Para produção de carne.</p>
+                    </div>
+                </article>
             </div>
         </section>
 
-        <!-- Seção N -->
+        <!-- Section N -->
         <section id="N" class="breed-section">
             <h2>N</h2>
             <div class="breeds-grid">
-                <article class="breed-card"><div class="card-image-placeholder"><img src="NELORE.jpg" alt="Raça Nelore"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/in.png" alt="Bandeira da Índia" class="flag-icon">Nelore</h3><p><strong>Origem:</strong> Índia.</p><p>Pele preta, resistente ao sol.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="NORMANDO.jpg" alt="Raça Normando"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/fr.png" alt="Bandeira da França" class="flag-icon">Normando</h3><p><strong>Origem:</strong> Normandia, França.</p><p>Dupla utilidade (leite e carne).</p></div></article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="NELORE.jpg" alt="Raça Nelore">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/in.png" alt="Bandeira da Índia" class="flag-icon">Nelore</h3>
+                        <p><strong>Origem:</strong> Índia.</p>
+                        <p>Pele preta, resistente ao sol.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="NORMANDO.jpg" alt="Raça Normando">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/fr.png" alt="Bandeira da França" class="flag-icon">Normando</h3>
+                        <p><strong>Origem:</strong> Normandia, França.</p>
+                        <p>Dupla utilidade (leite e carne).</p>
+                    </div>
+                </article>
             </div>
         </section>
 
-        <!-- Seção O -->
+        <!-- Section O -->
         <section id="O" class="breed-section">
             <h2>O</h2>
             <div class="breeds-grid">
-                <article class="breed-card"><div class="card-image-placeholder"><img src="ORIGINAL BRAUNVIEH.jpg" alt="Raça Original Braunvieh"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/ch.png" alt="Bandeira da Suíça" class="flag-icon">Original Braunvieh</h3><p><strong>Origem:</strong> Suíça.</p><p>Dupla aptidão (carne e leite).</p></div></article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="ORIGINAL BRAUNVIEH.jpg" alt="Raça Original Braunvieh">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/ch.png" alt="Bandeira da Suíça" class="flag-icon">Original Braunvieh</h3>
+                        <p><strong>Origem:</strong> Suíça.</p>
+                        <p>Dupla aptidão (carne e leite).</p>
+                    </div>
+                </article>
             </div>
         </section>
 
-        <!-- Seção P -->
+        <!-- Section P -->
         <section id="P" class="breed-section">
             <h2>P</h2>
             <div class="breeds-grid">
-                <article class="breed-card"><div class="card-image-placeholder"><img src="PANTANEIRO.jpg" alt="Raça Pantaneiro"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/br.png" alt="Bandeira do Brasil" class="flag-icon">Pantaneiro</h3><p><strong>Origem:</strong> Brasil.</p><p>Adaptado ao Pantanal.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="PARDA.jpg" alt="Raça Parda"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/es.png" alt="Bandeira da Espanha" class="flag-icon">Parda</h3><p><strong>Origem:</strong> Espanha.</p><p>Leiteira com bom rendimento de carne.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="PARDA DE MONTANHA.jpg" alt="Raça Parda de Montanha"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/es.png" alt="Bandeira da Espanha" class="flag-icon">Parda de Montanha</h3><p><strong>Origem:</strong> Espanha.</p><p>Para produção de carne.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="PARDO SUÍÇO.jpg" alt="Raça Pardo Suíço"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/ch.png" alt="Bandeira da Suíça" class="flag-icon">Pardo Suíço</h3><p><strong>Origem:</strong> Suíça.</p><p>Leite com altos teores de sólidos.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="PIE NOIRE HOLSTEIN.jpg" alt="Raça Pie Noire Holstein"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/nl.png" alt="Bandeira da Holanda" class="flag-icon">Pie Noire Holstein</h3><p><strong>Origem:</strong> Holanda.</p><p>Para produção de leite.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="PIEMONTÊS.jpg" alt="Raça Piemontês"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/it.png" alt="Bandeira da Itália" class="flag-icon">Piemontês</h3><p><strong>Origem:</strong> Itália.</p><p>Famosa pela dupla musculatura.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="PIRENAICA.jpg" alt="Raça Pirenaica"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/es.png" alt="Bandeira da Espanha" class="flag-icon">Pirenaica</h3><p><strong>Origem:</strong> Espanha.</p><p>Descrita como de grande beleza.</p></div></article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="PANTANEIRO.jpg" alt="Raça Pantaneiro">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/br.png" alt="Bandeira do Brasil" class="flag-icon">Pantaneiro</h3>
+                        <p><strong>Origem:</strong> Brasil.</p>
+                        <p>Adaptado ao Pantanal.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="PARDA.jpg" alt="Raça Parda">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/es.png" alt="Bandeira da Espanha" class="flag-icon">Parda</h3>
+                        <p><strong>Origem:</strong> Espanha.</p>
+                        <p>Leiteira com bom rendimento de carne.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="PARDA DE MONTANHA.jpg" alt="Raça Parda de Montanha">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/es.png" alt="Bandeira da Espanha" class="flag-icon">Parda de Montanha</h3>
+                        <p><strong>Origem:</strong> Espanha.</p>
+                        <p>Para produção de carne.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="PARDO SUÍÇO.jpg" alt="Raça Pardo Suíço">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/ch.png" alt="Bandeira da Suíça" class="flag-icon">Pardo Suíço</h3>
+                        <p><strong>Origem:</strong> Suíça.</p>
+                        <p>Leite com altos teores de sólidos.</p>
+                    </div>
+                </article>
             </div>
         </section>
 
-        <!-- Seção R -->
+        <!-- Section R -->
         <section id="R" class="breed-section">
             <h2>R</h2>
             <div class="breeds-grid">
-                <article class="breed-card"><div class="card-image-placeholder"><img src="RANDALL.jpg" alt="Raça Randall"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/us.png" alt="Bandeira dos EUA" class="flag-icon">Randall</h3><p><strong>Origem:</strong> Estados Unidos.</p><p>Tripla finalidade (carne, leite, tração).</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="RED ANGUS.jpg" alt="Raça Red Angus"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/gb.png" alt="Bandeira da Grã-Bretanha" class="flag-icon">Red Angus</h3><p><strong>Origem:</strong> Inglaterra.</p><p>Cor vermelha, mais tolerante ao calor.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="RED BRANGUS.jpg" alt="Raça Red Brangus"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/us.png" alt="Bandeira dos EUA" class="flag-icon">Red Brangus</h3><p><strong>Origem:</strong> Estados Unidos.</p><p>Combina Brahman e Angus.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="RED FRIESIAN.jpg" alt="Raça Red Friesian"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/nl.png" alt="Bandeira da Holanda" class="flag-icon">Red Friesian</h3><p><strong>Origem:</strong> Holanda.</p><p>Variedade vermelha e branca da Frísia.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="RED POLL.jpg" alt="Raça Red Poll"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/gb.png" alt="Bandeira da Grã-Bretanha" class="flag-icon">Red Poll</h3><p><strong>Origem:</strong> Inglaterra.</p><p>Sem chifres, dupla finalidade.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="RETINTA.jpg" alt="Raça Retinta"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/es.png" alt="Bandeira da Espanha" class="flag-icon">Retinta</h3><p><strong>Origem:</strong> Espanha.</p><p>Dupla aptidão (carne e trabalho).</p></div></article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="RANDALL.jpg" alt="Raça Randall">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/us.png" alt="Bandeira dos EUA" class="flag-icon">Randall</h3>
+                        <p><strong>Origem:</strong> Estados Unidos.</p>
+                        <p>Tripla finalidade (carne, leite, tração).</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="RED BRANGUS.jpg" alt="Raça Red Brangus">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/us.png" alt="Bandeira dos EUA" class="flag-icon">Red Brangus</h3>
+                        <p><strong>Origem:</strong> Estados Unidos.</p>
+                        <p>Combina Brahman e Angus.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="RED FRIESIAN.jpg" alt="Raça Red Friesian">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/nl.png" alt="Bandeira da Holanda" class="flag-icon">Red Friesian</h3>
+                        <p><strong>Origem:</strong> Holanda.</p>
+                        <p>Variedade vermelha e branca da Frísia.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="RED POLL.jpg" alt="Raça Red Poll">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/gb.png" alt="Bandeira da Grã-Bretanha" class="flag-icon">Red Poll</h3>
+                        <p><strong>Origem:</strong> Inglaterra.</p>
+                        <p>Sem chifres, dupla finalidade.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="RETINTA.jpg" alt="Raça Retinta">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/es.png" alt="Bandeira da Espanha" class="flag-icon">Retinta</h3>
+                        <p><strong>Origem:</strong> Espanha.</p>
+                        <p>Dupla aptidão (carne e trabalho).</p>
+                    </div>
+                </article>
             </div>
         </section>
 
-        <!-- Seção S -->
+        <!-- Section S -->
         <section id="S" class="breed-section">
             <h2>S</h2>
             <div class="breeds-grid">
-                <article class="breed-card"><div class="card-image-placeholder"><img src="SALERS.jpg" alt="Raça Salers"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/fr.png" alt="Bandeira da França" class="flag-icon">Salers</h3><p><strong>Origem:</strong> França.</p><p>Considerada a melhor vaca ama-de-leite.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="SANMARTINERO.jpg" alt="Raça Sanmartinero"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/co.png" alt="Bandeira da Colômbia" class="flag-icon">Sanmartinero</h3><p><strong>Origem:</strong> Colômbia.</p><p>Rústica e resistente.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="SANTA GERTRUDIS.jpg" alt="Raça Santa Gertrudis"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/us.png" alt="Bandeira dos EUA" class="flag-icon">Santa Gertrudis</h3><p><strong>Origem:</strong> Estados Unidos.</p><p>Cruzamento de Brahman e Shorthorn.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="SHORTHORN.jpg" alt="Raça Shorthorn"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/gb.png" alt="Bandeira da Grã-Bretanha" class="flag-icon">Shorthorn</h3><p><strong>Origem:</strong> Grã-Bretanha.</p><p>Variedades para carne e leite.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="SIMBRAH.jpg" alt="Raça Simbrah"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/us.png" alt="Bandeira dos EUA" class="flag-icon">Simbrah</h3><p><strong>Origem:</strong> Estados Unidos.</p><p>5/8 Simmental e 3/8 Brahman.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="SIMMENTAL.jpg" alt="Raça Simmental"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/ch.png" alt="Bandeira da Suíça" class="flag-icon">Simmental</h3><p><strong>Origem:</strong> Suíça.</p><p>A raça mais popular da Europa.</p></div></article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="SALERS.jpg" alt="Raça Salers">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/fr.png" alt="Bandeira da França" class="flag-icon">Salers</h3>
+                        <p><strong>Origem:</strong> França.</p>
+                        <p>Considerada a melhor vaca ama-de-leite.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="SANTA GERTRUDIS.jpg" alt="Raça Santa Gertrudis">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/us.png" alt="Bandeira dos EUA" class="flag-icon">Santa Gertrudis</h3>
+                        <p><strong>Origem:</strong> Estados Unidos.</p>
+                        <p>Cruzamento de Brahman e Shorthorn.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="SHORTHORN.jpg" alt="Raça Shorthorn">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/gb.png" alt="Bandeira da Grã-Bretanha" class="flag-icon">Shorthorn</h3>
+                        <p><strong>Origem:</strong> Grã-Bretanha.</p>
+                        <p>Variedades para carne e leite.</p>
+                    </div>
+                </article>
             </div>
         </section>
 
-        <!-- Seção T -->
+        <!-- Section T -->
         <section id="T" class="breed-section">
             <h2>T</h2>
             <div class="breeds-grid">
-                <article class="breed-card"><div class="card-image-placeholder"><img src="TABAPUÃ.jpg" alt="Raça Tabapuã"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/br.png" alt="Bandeira do Brasil" class="flag-icon">Tabapuã</h3><p><strong>Origem:</strong> Brasil.</p><p>Para produção de carne.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="TARENTAISE.jpg" alt="Raça Tarentaise"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/us.png" alt="Bandeira dos EUA" class="flag-icon">Tarentaise</h3><p><strong>Origem:</strong> Estados Unidos.</p><p>Para produção de leite.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="TEXAS LONGHORN.jpg" alt="Raça Texas Longhorn"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/us.png" alt="Bandeira dos EUA" class="flag-icon">Texas Longhorn</h3><p><strong>Origem:</strong> Estados Unidos.</p><p>Chifres grandes e longos.</p></div></article>
-                <article class="breed-card"><div class="card-image-placeholder"><img src="TROPICARNE.jpg" alt="Raça Tropicarne"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/mx.png" alt="Bandeira do México" class="flag-icon">Tropicarne</h3><p><strong>Origem:</strong> México.</p><p>Cor vermelha característica.</p></div></article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="TABAPUÃ.jpg" alt="Raça Tabapuã">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/br.png" alt="Bandeira do Brasil" class="flag-icon">Tabapuã</h3>
+                        <p><strong>Origem:</strong> Brasil.</p>
+                        <p>Para produção de carne.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="TARENTAISE.jpg" alt="Raça Tarentaise">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/us.png" alt="Bandeira dos EUA" class="flag-icon">Tarentaise</h3>
+                        <p><strong>Origem:</strong> Estados Unidos.</p>
+                        <p>Para produção de leite.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="TEXAS LONGHORN.jpg" alt="Raça Texas Longhorn">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/us.png" alt="Bandeira dos EUA" class="flag-icon">Texas Longhorn</h3>
+                        <p><strong>Origem:</strong> Estados Unidos.</p>
+                        <p>Chifres grandes e longos.</p>
+                    </div>
+                </article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="TROPICARNE.jpg" alt="Raça Tropicarne">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/mx.png" alt="Bandeira do México" class="flag-icon">Tropicarne</h3>
+                        <p><strong>Origem:</strong> México.</p>
+                        <p>Cor vermelha característica.</p>
+                    </div>
+                </article>
             </div>
         </section>
 
-        <!-- Seção W -->
+        <!-- Section W -->
         <section id="W" class="breed-section">
             <h2>W</h2>
             <div class="breeds-grid">
-                <article class="breed-card"><div class="card-image-placeholder"><img src="WAGYU.jpg" alt="Raça Wagyu"></div><div class="card-content"><h3><img src="https://flagcdn.com/w40/jp.png" alt="Bandeira do Japão" class="flag-icon">Wagyu</h3><p><strong>Origem:</strong> Japão.</p><p>Carne apreciada por sua textura e sabor.</p></div></article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="WAGYU.jpg" alt="Raça Wagyu">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/jp.png" alt="Bandeira do Japão" class="flag-icon">Wagyu</h3>
+                        <p><strong>Origem:</strong> Japão.</p>
+                        <p>Carne apreciada por sua textura e sabor.</p>
+                    </div>
+                </article>
             </div>
         </section>
 
-        <!-- Seção Y -->
+        <!-- Section Y -->
         <section id="Y" class="breed-section">
             <h2>Y</h2>
             <div class="breeds-grid">
-                <article class="breed-card"><div class="card-image-placeholder"><img src="YAK.jpg" alt="Raça Yak"></div><div class="card-content"><h3><svg class="flag-icon svg-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>Yak</h3><p><strong>Origem:</strong> Tibete.</p><p>Utilizada para transporte, arado, carne, pele e leite.</p></div></article>
+                <article class="breed-card">
+                    <div class="card-image-wrapper">
+                        <img src="YAK.jpg" alt="Raça Yak">
+                    </div>
+                    <div class="card-content">
+                        <h3><img src="https://flagcdn.com/w40/jp.png" alt="Bandeira do Japão" class="flag-icon">Yak</h3>
+                        <p><strong>Origem:</strong> Tibete.</p>
+                        <p>Utilizada para transporte, arado, carne, pele e leite.</p>
+                    </div>
+                </article>
             </div>
         </section>
 
     </main>
 
-    <footer class="site-footer">
-        <p>© 2025 | Guia de estudos.</p>
-        <a href="#" class="footer-button">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
-                <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
-            </svg>
-            <span>Voltar para o Guia de estudos</span>
-        </a>
+    <!-- Scroll-to-Top Button -->
+    <button id="scroll-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; <span id="current-year"></span> | Guia de estudos.</p>
+        <p>Desenvolvido por Pedro Henrique com base em conteúdos online.</p>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const cards = document.querySelectorAll('.breed-card');
-            const observer = new IntersectionObserver((entries) => {
+            const header = document.getElementById('main-header');
+            const alphabetNav = document.getElementById('alphabet-nav');
+            const mobileAlphabetSelect = document.getElementById('mobile-alphabet-select'); // New: Get mobile select
+            const currentYearSpan = document.getElementById('current-year');
+            const sections = document.querySelectorAll('.breed-section');
+            const alphabetLinks = document.querySelectorAll('#alphabet-nav .desktop-links a'); // Updated selector
+            const scrollToTopBtn = document.getElementById('scroll-to-top');
+
+            // Set current year in footer
+            currentYearSpan.textContent = new Date().getFullYear();
+
+            // Function to smoothly scroll to a section
+            const scrollToSection = (sectionId) => {
+                const targetSection = document.querySelector(`#${sectionId}`);
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - header.offsetHeight - alphabetNav.offsetHeight - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            };
+
+            // Intersection Observer for highlighting active section in alphabet nav
+            const observerOptions = {
+                root: null, /* viewport */
+                rootMargin: '-50% 0px -49% 0px', /* Trigger when section is roughly in the middle of the viewport */
+                threshold: 0 /* No threshold needed, just intersection */
+            };
+
+            const sectionObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target);
+                    const id = entry.target.id;
+                    const correspondingDesktopLink = document.querySelector(`#alphabet-nav .desktop-links a[href="#${id}"]`); // Updated selector
+
+                    // Update desktop links active state
+                    if (correspondingDesktopLink) {
+                        if (entry.isIntersecting) {
+                            alphabetLinks.forEach(link => link.classList.remove('active'));
+                            correspondingDesktopLink.classList.add('active');
+                        }
+                    }
+
+                    // Update mobile select active state
+                    if (mobileAlphabetSelect && entry.isIntersecting) {
+                        mobileAlphabetSelect.value = id;
                     }
                 });
-            }, {
-                rootMargin: '0px 0px -100px 0px'
+            }, observerOptions);
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
             });
-            cards.forEach(card => observer.observe(card));
+
+            // Smooth scroll for desktop alphabet navigation
+            alphabetLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1); // Get ID without '#'
+                    scrollToSection(targetId);
+                });
+            });
+
+            // Handle change event for mobile alphabet select
+            if (mobileAlphabetSelect) {
+                mobileAlphabetSelect.addEventListener('change', (e) => {
+                    const selectedId = e.target.value;
+                    scrollToSection(selectedId);
+                });
+            }
+
+            // Show/hide scroll-to-top button
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) { /* Show after scrolling 300px down */
+                    scrollToTopBtn.classList.add('show');
+                } else {
+                    scrollToTopBtn.classList.remove('show');
+                }
+            });
+
+            // Scroll to top functionality
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Initial active link setting based on current hash, or default to 'A'
+            const initialHash = window.location.hash ? window.location.hash.substring(1).toUpperCase() : 'A';
+            const initialLink = document.querySelector(`#alphabet-nav .desktop-links a[href="#${initialHash}"]`); // Updated selector
+            if (initialLink) {
+                initialLink.classList.add('active');
+            } else {
+                // If no hash, or invalid hash, default to 'A'
+                document.querySelector('#alphabet-nav .desktop-links a[href="#A"]').classList.add('active');
+            }
+
+            // Set initial value for mobile select on page load
+            if (mobileAlphabetSelect) {
+                const currentSection = document.querySelector('.breed-section.is-visible'); // Check for currently visible section
+                if (currentSection) {
+                    mobileAlphabetSelect.value = currentSection.id;
+                } else {
+                    mobileAlphabetSelect.value = initialHash; // Fallback to initial hash or 'A'
+                }
+            }
         });
     </script>
-
 </body>
 </html>
